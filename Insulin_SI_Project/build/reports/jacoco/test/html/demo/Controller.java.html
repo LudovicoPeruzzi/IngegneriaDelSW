@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Controller.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Insulin_SI_Project</a> &gt; <a href="index.source.html" class="el_package">demo</a> &gt; <span class="el_source">Controller.java</span></div><h1>Controller.java</h1><pre class="source lang-java linenums">package demo;
+
+import java.util.*;
+
+<span class="fc" id="L5">public class Controller {</span>
+
+<span class="fc" id="L7">    private String sensSerialN = &quot;S-718395&quot;;</span>
+<span class="fc" id="L8">    private Integer sensControlV= 500;</span>
+<span class="fc" id="L9">    private String pompSerialN= &quot;P-174362&quot;;</span>
+<span class="fc" id="L10">    private Integer pompControlV= 300;</span>
+<span class="fc" id="L11">    private String d1SerialN= &quot;D1-48987&quot;;</span>
+<span class="fc" id="L12">    private Integer d1ControlV= 100;</span>
+<span class="fc" id="L13">    private String d2SerialN= &quot;D2-39187&quot;;</span>
+<span class="fc" id="L14">    private Integer d2ControlV= 200;</span>
+    //static final String clckSerialN= &quot;C-932861&quot;;
+    //static final Integer clckControlV= 10;
+<span class="fc" id="L17">    private String alrSerialN= &quot;A-568743&quot;;</span>
+<span class="fc" id="L18">    private Integer alrControlV= 33;</span>
+    private int cicle;
+
+<span class="fc" id="L21">    public InsulinPomp pomp = new InsulinPomp();</span>
+<span class="fc" id="L22">    public Sensor sensor = new Sensor();</span>
+<span class="fc" id="L23">    public Display1 display1 = new Display1();</span>
+<span class="fc" id="L24">    public Display2 display2 = new Display2();</span>
+<span class="fc" id="L25">    public Alarm alarm = new Alarm();</span>
+
+<span class="fc" id="L27">    public double batteryLevel = 100.0;</span>
+<span class="fc" id="L28">    public int currentInsQuantity= 350; //si assume che la pompa, all'accensione, sia piena.</span>
+<span class="fc" id="L29">    public double glucoseVariation = 0.0;</span>
+<span class="fc" id="L30">    public int dose = 0;</span>
+<span class="fc" id="L31">    public double glucose = 0.0;</span>
+<span class="fc" id="L32">    public boolean sisCheck= true;</span>
+<span class="fc" id="L33">    public int device=0;</span>
+<span class="fc" id="L34">    public double lastMeasurement=0.0;</span>
+
+    public void doseFromSensor(){
+
+<span class="nc" id="L38">        this.glucose = sensor.getGlucose();</span>
+<span class="nc" id="L39">        this.calculateDose();</span>
+
+<span class="nc" id="L41">    }</span>
+
+    public void calculateDose(){
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (cicle&lt;1){</span>
+<span class="fc" id="L45">            glucoseVariation=lastMeasurement-glucose;</span>
+<span class="fc" id="L46">            glucoseVariation*=-1;}</span>
+<span class="fc" id="L47">        else{glucoseVariation=lastMeasurement-glucose;}</span>
+<span class="fc" id="L48">        cicle++;</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (glucose &gt;= 500.0 ){</span>
+<span class="fc" id="L50">            this.dose=16;</span>
+<span class="fc" id="L51">            display1.setEmergencyInsuline(false,true);</span>
+<span class="fc" id="L52">            display2.setEmergencyInsuline(false,true);</span>
+<span class="fc" id="L53">            alarm.alarmRinging(true);</span>
+            }
+<span class="pc bpc" id="L55" title="1 of 4 branches missed.">        if (glucose &lt; 500.0 &amp;&amp; glucose &gt;= 450.0){this.dose=14;}</span>
+<span class="pc bpc" id="L56" title="1 of 4 branches missed.">        if (glucose &lt; 450.0 &amp;&amp; glucose &gt;= 400.0){ this.dose=12;}</span>
+<span class="pc bpc" id="L57" title="1 of 4 branches missed.">        if (glucose &lt; 400.0 &amp;&amp; glucose &gt;= 350.0){ this.dose=10;}</span>
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">        if (glucose &lt; 350.0 &amp;&amp; glucose &gt;= 300.0){ this.dose=8;}</span>
+<span class="fc bfc" id="L59" title="All 4 branches covered.">        if (glucose &lt; 300.0 &amp;&amp; glucose &gt;= 250.0){ this.dose=6;}</span>
+<span class="pc bpc" id="L60" title="1 of 4 branches missed.">        if (glucose &lt; 250.0 &amp;&amp; glucose &gt;= 200.0){ this.dose=4;}</span>
+<span class="pc bpc" id="L61" title="1 of 4 branches missed.">        if (glucose &lt; 200.0 &amp;&amp; glucose &gt;= 126.0){ this.dose=2;}</span>
+<span class="pc bpc" id="L62" title="1 of 4 branches missed.">        if (glucose &lt; 126 &amp;&amp; glucose &gt;= 76) { this.dose = 0;}</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (glucose &lt; 76.0){</span>
+<span class="fc" id="L64">            this.dose = 0;</span>
+<span class="fc" id="L65">            display1.setEmergencyInsuline(true,false);</span>
+<span class="fc" id="L66">            display2.setEmergencyInsuline(true,false);</span>
+<span class="fc" id="L67">            alarm.alarmRinging(true);</span>
+            }
+<span class="fc" id="L69">        lastMeasurement = glucose;</span>
+<span class="fc" id="L70">    }</span>
+
+     public void sendDoseToPomp(){
+<span class="fc" id="L73">        List&lt;Integer&gt; pompResponse=pomp.setDose(this.dose);</span>
+<span class="fc" id="L74">        this.currentInsQuantity-=this.dose;</span>
+<span class="fc bfc" id="L75" title="All 4 branches covered.">        if ( pompResponse.size() ==2 || batteryLevel &lt; 35){</span>
+<span class="fc" id="L76">            alarm.alarmRinging(true);</span>
+<span class="fc" id="L77">            display1.emergencyPrinting(true,true);</span>
+<span class="fc" id="L78">            display2.emergencyPrinting(true,true);</span>
+
+        }
+<span class="fc" id="L81">    }</span>
+
+    public void sendInfoToDisplays(){
+<span class="fc" id="L84">        List&lt;String&gt; list = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L85">        list.add(Double.toString(this.batteryLevel));</span>
+<span class="fc" id="L86">        list.add(Integer.toString(this.currentInsQuantity));</span>
+<span class="fc" id="L87">        display2.setPrintInfo(list);</span>
+<span class="fc" id="L88">        list.add(Double.toString(this.glucose));</span>
+<span class="fc" id="L89">        list.add(Double.toString(this.glucoseVariation));</span>
+<span class="fc" id="L90">        list.add(Integer.toString(this.dose));</span>
+<span class="fc" id="L91">        display1.setPrintInfo(list);</span>
+<span class="fc" id="L92">    }</span>
+
+    public void checkSystemStatus(){
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if(batteryLevel &lt; 35){sisCheck=false;device=0;}</span>
+
+<span class="fc" id="L97">        List&lt;Object&gt; result = sensor.getCheckValues();</span>
+<span class="pc bpc" id="L98" title="2 of 4 branches missed.">        if((!sensSerialN.equals(result.get(0)))|| (!sensControlV.equals(result.get(1))) ||</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">                (Double.compare(lastMeasurement,(Double) result.get(2))!= 0)){sisCheck=false;device=1;}</span>
+
+<span class="fc" id="L101">        result = pomp.getCheckValues();</span>
+<span class="pc bpc" id="L102" title="2 of 4 branches missed.">        if((!pompSerialN.equals(result.get(0)))||(!pompControlV.equals(result.get(1))) ||</span>
+<span class="pc bpc" id="L103" title="2 of 4 branches missed.">            (currentInsQuantity != (int) result.get(2)) ||(dose != (int) result.get(3))){sisCheck=false;device=2;}</span>
+
+<span class="fc" id="L105">        result= display1.getCheckValues();</span>
+<span class="pc bpc" id="L106" title="2 of 4 branches missed.">        if((!d1SerialN.equals(result.get(0))) || (!d1ControlV.equals(result.get(1)))){sisCheck=false;device=3;}</span>
+
+<span class="fc" id="L108">        result = display2.getCheckValues();</span>
+<span class="pc bpc" id="L109" title="2 of 4 branches missed.">        if((!d2SerialN.equals(result.get(0))) || (!d2ControlV.equals(result.get(1)))){sisCheck=false;device=4;}</span>
+
+<span class="fc" id="L111">        result = alarm.getCheckValues();</span>
+<span class="pc bpc" id="L112" title="2 of 4 branches missed.">        if((!alrSerialN.equals(result.get(0))) || (!alrControlV.equals(result.get(1)))){sisCheck=false;device=5;}</span>
+
+
+<span class="pc bpc" id="L115" title="3 of 6 branches missed.">        if(!sisCheck &amp;&amp; (device == 1 || device == 2)){</span>
+<span class="fc" id="L116">            alarm.alarmRinging(true);</span>
+<span class="nc" id="L117">            System.exit(1);</span>
+        }
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if(!sisCheck){</span>
+<span class="nc" id="L120">            alarm.alarmRinging(true);</span>
+        }
+
+<span class="fc" id="L123">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

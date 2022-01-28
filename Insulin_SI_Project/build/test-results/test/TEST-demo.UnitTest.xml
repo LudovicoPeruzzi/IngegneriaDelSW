@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="demo.UnitTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2022-01-24T20:18:49" hostname="MacBook" time="0.036">
+  <properties/>
+  <testcase name="testSensorIsInRange" classname="demo.UnitTest" time="0.013"/>
+  <testcase name="testSysError" classname="demo.UnitTest" time="0.017"/>
+  <testcase name="testLowInsuline" classname="demo.UnitTest" time="0.0"/>
+  <testcase name="testGlucoseTooLowOrTooHigh" classname="demo.UnitTest" time="0.0"/>
+  <testcase name="testAlarm" classname="demo.UnitTest" time="0.0"/>
+  <testcase name="testPomp" classname="demo.UnitTest" time="0.0"/>
+  <testcase name="testLowBattery" classname="demo.UnitTest" time="0.0"/>
+  <testcase name="testSensorController" classname="demo.UnitTest" time="0.0"/>
+  <testcase name="testEmergencyInsuline" classname="demo.UnitTest" time="0.0"/>
+  <testcase name="testDisplays" classname="demo.UnitTest" time="0.0"/>
+  <testcase name="testSystem" classname="demo.UnitTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

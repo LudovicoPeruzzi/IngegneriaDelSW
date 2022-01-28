@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group 'it.univr'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:20.1.0'
+    testImplementation 'junit:junit:4.12'
+    testCompile "com.github.stefanbirkner:system-lambda:1.2.1"
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+jacocoTestReport {
+    dependsOn test
+}

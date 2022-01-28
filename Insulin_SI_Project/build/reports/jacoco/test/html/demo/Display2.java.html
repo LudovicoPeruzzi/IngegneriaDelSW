@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Display2.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Insulin_SI_Project</a> &gt; <a href="index.source.html" class="el_package">demo</a> &gt; <span class="el_source">Display2.java</span></div><h1>Display2.java</h1><pre class="source lang-java linenums">package demo;
+
+import java.util.LinkedList;
+import java.util.List;
+
+<span class="fc" id="L6">public class Display2 {</span>
+
+    static final String serialNumber = &quot;D2-39187&quot;;
+<span class="fc" id="L9">    static final Integer controlValue = 200;</span>
+
+    public String batteryLevel;
+    public String insulineResidueQuantity;
+
+    public boolean pomp;
+    public boolean battery;
+    public boolean lowInsuline;
+    public boolean highInsuline;
+
+    public void setEmergencyInsuline(boolean low, boolean high){
+<span class="fc" id="L20">        this.lowInsuline = low;</span>
+<span class="fc" id="L21">        this.highInsuline = high;</span>
+<span class="fc" id="L22">    }</span>
+
+
+    public void emergencyPrinting(boolean pomp, boolean battery){
+<span class="fc" id="L26">        this.pomp=pomp;</span>
+<span class="fc" id="L27">        this.battery=battery;</span>
+<span class="fc" id="L28">    }</span>
+
+    public void setPrintInfo(List&lt;String&gt; param){
+<span class="fc" id="L31">        this.batteryLevel=param.get(0);</span>
+<span class="fc" id="L32">        this.insulineResidueQuantity=param.get(1);</span>
+<span class="fc" id="L33">    }</span>
+
+    public List&lt;Object&gt; getCheckValues(){
+<span class="fc" id="L36">        List&lt;Object&gt; result = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L37">        result.add(serialNumber);</span>
+<span class="fc" id="L38">        result.add(controlValue);</span>
+<span class="fc" id="L39">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
